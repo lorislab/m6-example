@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xmlns="urn:activemq" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:activemq /schema/artemis-configuration.xsd">
+    <!-- from 1.0.0 to 1.5.5 the following line should be : <core xmlns="urn:activemq:core"> -->
+    <core xmlns="urn:activemq:core" xsi:schemaLocation="urn:activemq:core ">
+
+        <!-- ADDRESS TEST -->
+        <address-settings>
+            <address-setting match="TEST">
+                <dead-letter-address>DLQ</dead-letter-address>
+                <expiry-address>ExpiryQueue</expiry-address>
+                <max-size-bytes>-1</max-size-bytes>
+                <message-counter-history-day-limit>10</message-counter-history-day-limit>
+                <address-full-policy>PAGE</address-full-policy>
+                <!-- default is 1.0 -->
+                <redelivery-delay-multiplier>1.5</redelivery-delay-multiplier>
+                <!-- default is 0 (no delay) -->
+                <redelivery-delay>5000</redelivery-delay>
+                <!-- default is redelivery-delay * 10 -->
+                <max-redelivery-delay>50000</max-redelivery-delay>
+            </address-setting>
+        </address-settings>
+
+        <!-- ADDRESS TEST -->
+        <addresses>
+            <address name="TEST">
+                <anycast>
+                    <queue name="TEST"/>
+                </anycast>
+            </address>
+        </addresses>
+    </core>
+</configuration>

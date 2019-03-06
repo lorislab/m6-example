@@ -9,6 +9,8 @@ services:
       ARTEMIS_USERNAME: admin
       ARTEMIS_PASSWORD: admin
       DISABLE_SECURITY: "true"
+    volumes:
+      - ./src/main/docker/artemis:/var/lib/artemis/etc-override
     ports:
       - "8161:8161"
     networks:
