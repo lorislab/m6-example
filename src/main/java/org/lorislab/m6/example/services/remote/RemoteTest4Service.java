@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.lorislab.m6.example.services;
+package org.lorislab.m6.example.services.remote;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jboss.ejb3.annotation.ResourceAdapter;
@@ -26,18 +26,18 @@ import javax.inject.Inject;
 import javax.jms.*;
 
 @Slf4j
-//@ResourceAdapter("remote-artemis")
+@ResourceAdapter("remote-artemis")
 @MessageDriven(
         activationConfig = {
-                @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "queue/test4"),
+                @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "queue/remoteTest4"),
                 @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-                @ActivationConfigProperty(propertyName = "nextDestination", propertyValue = "test5")
+                @ActivationConfigProperty(propertyName = "nextDestination", propertyValue = "remoteTest5")
         }
 )
-public class Test4Service extends AbstractMessageListener<TextMessage> {
+public class RemoteTest4Service extends AbstractMessageListener<TextMessage> {
 
     @Inject
-//    @JMSConnectionFactory("java:/jms/remoteCF")
+    @JMSConnectionFactory("java:/jms/remoteCF")
     private JMSContext context;
 
     @Override

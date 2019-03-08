@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.lorislab.m6.example.services;
+package org.lorislab.m6.example.services.remote;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jboss.ejb3.annotation.ResourceAdapter;
@@ -26,18 +26,18 @@ import javax.inject.Inject;
 import javax.jms.*;
 
 @Slf4j
-//@ResourceAdapter("remote-artemis")
+@ResourceAdapter("remote-artemis")
 @MessageDriven(
         activationConfig = {
-                @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "queue/test1"),
+                @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "queue/remoteStart"),
                 @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-                @ActivationConfigProperty(propertyName = "nextDestination", propertyValue = "test2")
+                @ActivationConfigProperty(propertyName = "nextDestination", propertyValue = "remoteTest1")
         }
 )
-public class Test1Service extends AbstractMessageListener<TextMessage> {
+public class RemoteStartService extends AbstractMessageListener<TextMessage> {
 
     @Inject
-//    @JMSConnectionFactory("java:/jms/remoteCF")
+    @JMSConnectionFactory("java:/jms/remoteCF")
     private JMSContext context;
 
     @Override
@@ -47,8 +47,8 @@ public class Test1Service extends AbstractMessageListener<TextMessage> {
 
     @Override
     protected void executeMessage(Message input, TextMessage output) throws JMSException {
-        log.info("####### Test1 service ####");
-        output.setText("Test 1");
+        log.info("####### Start service ####");
+        output.setText("Start service");
     }
 
 }

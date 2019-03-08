@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.lorislab.m6.example.services;
+package org.lorislab.m6.example.services.local;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jboss.ejb3.annotation.ResourceAdapter;
@@ -25,17 +25,17 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 
 @Slf4j
-//@ResourceAdapter("remote-artemis")
+@ResourceAdapter("remote-artemis")
 @MessageDriven(
         activationConfig = {
-                @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "queue/test5"),
+                @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "queue/localEnd"),
                 @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
         }
 )
-public class Test5Service implements MessageListener {
+public class LocalEndService implements MessageListener {
 
     @Override
     public void onMessage(Message message) {
-        log.info("####### TEST 5 last step: {}", message);
+        log.info("####### LOCAL END last step: {}", message);
     }
 }

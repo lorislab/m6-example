@@ -29,7 +29,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
-import java.util.UUID;
 
 @Slf4j
 @Stateless
@@ -37,17 +36,48 @@ import java.util.UUID;
 public class SendRestService {
 
     @Inject
-//    @JMSConnectionFactory("java:/jms/remoteCF")
     private JMSContext context;
 
+    @Inject
+    @JMSConnectionFactory("java:/jms/remoteCF")
+    private JMSContext remoteContext;
+
     @POST
-    public void send(@Context HttpHeaders headers, String data) throws Exception {
-        String id = UUID.randomUUID().toString();
-        log.info("\n######################################\n SEND MESSGAE: {} \n######################################", id);
-        TextMessage msg = context.createTextMessage(data);
-        AbstractMessageListener.copyHeader(headers.getRequestHeaders(), msg);
-        msg.setStringProperty("M6_EXAMPLE_ID", id);
-        Queue queue = context.createQueue("start");
-        context.createProducer().send(queue, msg);
+    @Path("local")
+    public void sendLocal(@Context HttpHeaders headers, String data) throws Exception {
+        logHeaders(headers);
+        sendMessage(context, headers, data, "localStart");
+    }
+
+    @POST
+    @Path("temp")
+    public void sendTemp(@Context HttpHeaders headers, String data) throws Exception {
+        logHeaders(headers);
+        sendMessage(context, headers, data, "tempStart");
+    }
+
+    @POST
+    @Path("remote")
+    public void sendRemote(@Context HttpHeaders headers, String data) throws Exception {
+        logHeaders(headers);
+        sendMessage(remoteContext, headers, data, "remoteStart");
+    }
+
+    private void sendMessage(JMSContext c, HttpHeaders h, String data, String queueName) throws Exception {
+        TextMessage msg = c.createTextMessage(data);
+        AbstractMessageListener.copyHeader(h.getRequestHeaders(), msg);
+        Queue queue = c.createQueue(queueName);
+        c.createProducer().send(queue, msg);
+    }
+
+    private void logHeaders(HttpHeaders headers) {
+        StringBuilder sb = new StringBuilder();
+        if (headers.getRequestHeaders() != null) {
+            for (String key : headers.getRequestHeaders().keySet()) {
+                String value = headers.getRequestHeaders().getFirst(key);
+                sb.append(key).append(':').append(value).append(',');
+            }
+        }
+        log.info("\n######################################\n SEND MESSAGE \n{}\n \n######################################", sb.toString());
     }
 }

@@ -3,9 +3,9 @@
     <!-- from 1.0.0 to 1.5.5 the following line should be : <core xmlns="urn:activemq:core"> -->
     <core xmlns="urn:activemq:core" xsi:schemaLocation="urn:activemq:core ">
 
-        <!-- ADDRESS TEST -->
+        <!-- ADDRESS SETTINGS -->
         <address-settings>
-            <address-setting match="TEST">
+            <address-setting match="remote#">
                 <dead-letter-address>DLQ</dead-letter-address>
                 <expiry-address>ExpiryQueue</expiry-address>
                 <max-size-bytes>-1</max-size-bytes>
@@ -20,11 +20,41 @@
             </address-setting>
         </address-settings>
 
-        <!-- ADDRESS TEST -->
+        <!-- QUEUES -->
         <addresses>
-            <address name="TEST">
+            <address name="remoteStart">
                 <anycast>
-                    <queue name="TEST"/>
+                    <queue name="remoteStart"/>
+                </anycast>
+            </address>
+            <address name="remoteTest1">
+                <anycast>
+                    <queue name="remoteTest1"/>
+                </anycast>
+            </address>
+            <address name="remoteTest2">
+                <anycast>
+                    <queue name="remoteTest2"/>
+                </anycast>
+            </address>
+            <address name="remoteTest31">
+                <anycast>
+                    <queue name="remoteTest31"/>
+                </anycast>
+            </address>
+            <address name="remoteTest32">
+                <anycast>
+                    <queue name="remoteTest32"/>
+                </anycast>
+            </address>
+            <address name="remoteTest4">
+                <anycast>
+                    <queue name="remoteTest4"/>
+                </anycast>
+            </address>
+            <address name="remoteTest5">
+                <anycast>
+                    <queue name="remoteTest5"/>
                 </anycast>
             </address>
         </addresses>

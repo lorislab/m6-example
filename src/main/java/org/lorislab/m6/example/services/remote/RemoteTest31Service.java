@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.lorislab.m6.example.services;
+package org.lorislab.m6.example.services.remote;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jboss.ejb3.annotation.ResourceAdapter;
@@ -24,20 +24,23 @@ import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
 import javax.jms.*;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.MediaType;
 
 @Slf4j
-//@ResourceAdapter("remote-artemis")
+@ResourceAdapter("remote-artemis")
 @MessageDriven(
         activationConfig = {
-                @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "queue/test32"),
+                @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "queue/remoteTest31"),
                 @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-                @ActivationConfigProperty(propertyName = "nextDestination", propertyValue = "test4")
+                @ActivationConfigProperty(propertyName = "nextDestination", propertyValue = "remoteTest4")
         }
 )
-public class Test32Service extends AbstractMessageListener<TextMessage> {
+public class RemoteTest31Service extends AbstractMessageListener<TextMessage> {
 
     @Inject
-//    @JMSConnectionFactory("java:/jms/remoteCF")
+    @JMSConnectionFactory("java:/jms/remoteCF")
     private JMSContext context;
 
     @Override
@@ -47,8 +50,16 @@ public class Test32Service extends AbstractMessageListener<TextMessage> {
 
     @Override
     protected void executeMessage(Message input, TextMessage output) throws JMSException {
-        log.info("####### Test32 service ####");
-        output.setText("Test 32");
+        log.info("####### Test31 service ####");
+        output.setText("Test 31");
+        try {
+            Client client = ClientBuilder.newClient();
+            String name = client.target("http://m6-test:8080/m6-test/ping").request(MediaType.TEXT_PLAIN).get(String.class);
+            log.info("Rest result:{}", name);
+        } catch (Exception ex) {
+            throw new RuntimeException("Error reading rest service information!", ex);
+        }
+
     }
 
 }
