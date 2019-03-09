@@ -5,15 +5,21 @@ cache:
   directories:
     - $HOME/.m2
 
+sudo: required
+services:
+  - docker
+
 before_install:
   - git clone https://github.com/lorislab/travis-configuration.git .scripts
   - find .scripts -type f -iname "*.sh" -exec chmod +x {} \;
 
-install: ./.scripts/maven/install.sh
+install: ./.scripts/maven/jee/install.sh
 
 script:
-  - ./.scripts/maven/build.sh
-  - ./.scripts/maven/deploy_master.sh
+  - ./.scripts/maven/jee/build.sh
+  - docker pull vromero/activemq-artemis
+  - ./.scripts/maven/jee/tests.sh
+  - ./.scripts/maven/jee/deploy_master.sh
 
 after_success:
-  - ./.scripts/maven/after_success.sh
+  - ./.scripts/maven/jee/after_success.sh

@@ -30,7 +30,7 @@ import javax.jms.TextMessage;
 @Slf4j
 @MessageDriven(
         activationConfig = {
-                @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "queue/tempTest"),
+                @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:/queue/tempTest"),
                 @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
                 @ActivationConfigProperty(propertyName = "nextDestination", propertyValue = "tempEnd")
         }

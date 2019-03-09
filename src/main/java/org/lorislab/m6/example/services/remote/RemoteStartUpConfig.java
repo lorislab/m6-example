@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.lorislab.m6.example.services.temporary;
+package org.lorislab.m6.example.services.remote;
 
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -24,23 +24,33 @@ import javax.jms.JMSDestinationDefinitions;
 @JMSDestinationDefinitions(
         value = {
                 @JMSDestinationDefinition(
-                        name = "java:/queue/tempStart",
+                        name = "java:/queue/remoteStart",
                         interfaceName = "javax.jms.Queue",
-                        destinationName = "tempStart"
+                        destinationName = "remoteStart"
                 ),
                 @JMSDestinationDefinition(
-                        name = "java:/queue/tempTest",
+                        name = "java:/queue/remoteTest2",
                         interfaceName = "javax.jms.Queue",
-                        destinationName = "tempTest"
+                        destinationName = "remoteTest2"
                 ),
                 @JMSDestinationDefinition(
-                        name = "java:/queue/tempEnd",
+                        name = "java:/queue/remoteTest31",
                         interfaceName = "javax.jms.Queue",
-                        destinationName = "tempEnd"
+                        destinationName = "remoteTest31"
+                ),
+                @JMSDestinationDefinition(
+                        name = "java:/queue/remoteTest32",
+                        interfaceName = "javax.jms.Queue",
+                        destinationName = "remoteTest32"
+                ),
+                @JMSDestinationDefinition(
+                        name = "java:/queue/remoteTest5",
+                        interfaceName = "javax.jms.Queue",
+                        destinationName = "remoteTest5"
                 )
         }
 )
 @Startup
 @Singleton
-public class TempStartUpConfig {
+public class RemoteStartUpConfig {
 }

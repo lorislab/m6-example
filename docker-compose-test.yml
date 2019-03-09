@@ -1,13 +1,10 @@
-version: "3"
+version: "2"
 
 services:
 
   m6-amq:
-    container_name: m6-amq
     image: vromero/activemq-artemis
     environment:
-      ARTEMIS_USERNAME: admin
-      ARTEMIS_PASSWORD: admin
       DISABLE_SECURITY: "true"
     volumes:
       - ./src/main/docker/artemis:/var/lib/artemis/etc-override
@@ -17,15 +14,10 @@ services:
       - m6
 
   m6-example:
-    container_name: m6-example
     image: lorislab/m6-example
-    environment:
-        DEBUG: "true"
-        DEBUG_PORT: "*:8787"
     restart: on-failure
-    ports: 
+    ports:
         - "8080:8080"
-        - "8787:8787"
         - "9990:9990"
     networks:
      - m6

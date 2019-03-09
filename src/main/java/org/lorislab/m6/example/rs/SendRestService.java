@@ -25,6 +25,7 @@ import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.Queue;
 import javax.jms.TextMessage;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
@@ -41,6 +42,11 @@ public class SendRestService {
     @Inject
     @JMSConnectionFactory("java:/jms/remoteCF")
     private JMSContext remoteContext;
+
+    @GET
+    public String ping() {
+        return "PONG";
+    }
 
     @POST
     @Path("local")

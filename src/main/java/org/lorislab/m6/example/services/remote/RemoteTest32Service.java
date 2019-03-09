@@ -31,7 +31,7 @@ import javax.jms.*;
         activationConfig = {
                 @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "queue/remoteTest32"),
                 @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-                @ActivationConfigProperty(propertyName = "nextDestination", propertyValue = "remoteTest4")
+                @ActivationConfigProperty(propertyName = "nextDestination", propertyValue = "remoteTest5")
         }
 )
 public class RemoteTest32Service extends AbstractMessageListener<TextMessage> {

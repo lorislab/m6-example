@@ -5,7 +5,7 @@
 
         <!-- ADDRESS SETTINGS -->
         <address-settings>
-            <address-setting match="remote#">
+            <address-setting match="jms.queue.remote#">
                 <dead-letter-address>DLQ</dead-letter-address>
                 <expiry-address>ExpiryQueue</expiry-address>
                 <max-size-bytes>-1</max-size-bytes>
@@ -14,47 +14,39 @@
                 <!-- default is 1.0 -->
                 <redelivery-delay-multiplier>1.5</redelivery-delay-multiplier>
                 <!-- default is 0 (no delay) -->
-                <redelivery-delay>5000</redelivery-delay>
+                <redelivery-delay>1500</redelivery-delay>
                 <!-- default is redelivery-delay * 10 -->
                 <max-redelivery-delay>50000</max-redelivery-delay>
+
+                <max-delivery-attempts>3</max-delivery-attempts>
             </address-setting>
         </address-settings>
 
         <!-- QUEUES -->
         <addresses>
-            <address name="remoteStart">
+            <address name="jms.queue.remoteStart">
                 <anycast>
-                    <queue name="remoteStart"/>
+                    <queue name="jms.queue.remoteStart"/>
                 </anycast>
             </address>
-            <address name="remoteTest1">
+            <address name="jms.queue.remoteTest2">
                 <anycast>
-                    <queue name="remoteTest1"/>
+                    <queue name="jms.queue.remoteTest2"/>
                 </anycast>
             </address>
-            <address name="remoteTest2">
+            <address name="jms.queue.remoteTest31">
                 <anycast>
-                    <queue name="remoteTest2"/>
+                    <queue name="jms.queue.remoteTest31"/>
                 </anycast>
             </address>
-            <address name="remoteTest31">
+            <address name="jms.queue.remoteTest32">
                 <anycast>
-                    <queue name="remoteTest31"/>
+                    <queue name="jms.queue.remoteTest32"/>
                 </anycast>
             </address>
-            <address name="remoteTest32">
+            <address name="jms.queue.remoteTest5">
                 <anycast>
-                    <queue name="remoteTest32"/>
-                </anycast>
-            </address>
-            <address name="remoteTest4">
-                <anycast>
-                    <queue name="remoteTest4"/>
-                </anycast>
-            </address>
-            <address name="remoteTest5">
-                <anycast>
-                    <queue name="remoteTest5"/>
+                    <queue name="jms.queue.remoteTest5"/>
                 </anycast>
             </address>
         </addresses>

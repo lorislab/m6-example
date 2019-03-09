@@ -34,7 +34,7 @@ import javax.ws.rs.core.MediaType;
         activationConfig = {
                 @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "queue/remoteTest31"),
                 @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-                @ActivationConfigProperty(propertyName = "nextDestination", propertyValue = "remoteTest4")
+                @ActivationConfigProperty(propertyName = "nextDestination", propertyValue = "remoteTest5")
         }
 )
 public class RemoteTest31Service extends AbstractMessageListener<TextMessage> {
