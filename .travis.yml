@@ -20,7 +20,7 @@ install:
   - find .scripts -type f -iname "*.sh" -exec chmod +x {} \;
 
 stages:
-  - compile
+  - build
   - test
   - publish
   - deploy
