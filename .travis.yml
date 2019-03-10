@@ -28,4 +28,4 @@ script:
   - ./.scripts/maven/jee/deploy_master.sh
 
 after_success:
-  - ./.scripts/maven/after_success.sh
+  - ./.scripts/maven/jee/after_success.sh
