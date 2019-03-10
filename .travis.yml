@@ -33,7 +33,7 @@ jobs:
     - stage: test
       name: Integration tests
       script:
-        - ./.scripts/maven/ci/build.sh
+        - ./.scripts/maven/ci/tests.sh
     - stage: publish
       name: Publish project
       script:
