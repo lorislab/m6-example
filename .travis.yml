@@ -9,6 +9,12 @@ sudo: required
 services:
   - docker
 
+addons:
+  sonarcloud:
+    organization: "lorislab"
+    token:
+      secure: $SONARCLOUD_KEY
+
 before_install:
   - git clone https://github.com/lorislab/travis-configuration.git .scripts
   - find .scripts -type f -iname "*.sh" -exec chmod +x {} \;
@@ -20,6 +26,3 @@ script:
   - docker pull vromero/activemq-artemis
   - ./.scripts/maven/jee/tests.sh
   - ./.scripts/maven/jee/deploy_master.sh
-
-after_success:
-  - ./.scripts/maven/jee/after_success.sh

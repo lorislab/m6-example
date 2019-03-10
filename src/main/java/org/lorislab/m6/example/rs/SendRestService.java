@@ -51,21 +51,21 @@ public class SendRestService {
     @POST
     @Path("local")
     public void sendLocal(@Context HttpHeaders headers, String data) throws Exception {
-        logHeaders(headers);
+        RestLogger.log(log, headers.getRequestHeaders());
         sendMessage(context, headers, data, "localStart");
     }
 
     @POST
     @Path("temp")
     public void sendTemp(@Context HttpHeaders headers, String data) throws Exception {
-        logHeaders(headers);
+        RestLogger.log(log, headers.getRequestHeaders());
         sendMessage(context, headers, data, "tempStart");
     }
 
     @POST
     @Path("remote")
     public void sendRemote(@Context HttpHeaders headers, String data) throws Exception {
-        logHeaders(headers);
+        RestLogger.log(log, headers.getRequestHeaders());
         sendMessage(remoteContext, headers, data, "remoteStart");
     }
 
@@ -76,14 +76,4 @@ public class SendRestService {
         c.createProducer().send(queue, msg);
     }
 
-    private void logHeaders(HttpHeaders headers) {
-        StringBuilder sb = new StringBuilder();
-        if (headers.getRequestHeaders() != null) {
-            for (String key : headers.getRequestHeaders().keySet()) {
-                String value = headers.getRequestHeaders().getFirst(key);
-                sb.append(key).append(':').append(value).append(',');
-            }
-        }
-        log.info("\n######################################\n SEND MESSAGE \n{}\n \n######################################", sb.toString());
-    }
 }

@@ -17,18 +17,25 @@
 package org.lorislab.m6.example.rs;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+
+import javax.ws.rs.core.MultivaluedMap;
 
 @Slf4j
-public class SendRestServiceTest {
+public class RestLogger {
 
-    @Test
-    public void unitTest() {
-        log.info("Unit test");
-        SendRestService s = new SendRestService();
-        String r = s.ping();
-        Assertions.assertEquals("PONG", r);
+    public static void dummyTest(String data) {
+      log.info("Dummy test method {}", data);
     }
 
+    public static void log(Logger log, MultivaluedMap<String, String> data) {
+        StringBuilder sb = new StringBuilder();
+        if (data != null) {
+            for (String key : data.keySet()) {
+                String value = data.getFirst(key);
+                sb.append(key).append(':').append(value).append(',');
+            }
+        }
+        log.info("\n######################################\n SEND MESSAGE \n{}\n \n######################################", sb.toString());
+    }
 }
