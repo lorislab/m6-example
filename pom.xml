@@ -244,6 +244,7 @@
                                     <excludes>
                                         <exclude>**/*_.class</exclude>
                                     </excludes>
+                                    <destFile>${project.build.directory}/jacoco-it.exec</destFile>
                                 </configuration>
                             </execution>
                         </executions>
