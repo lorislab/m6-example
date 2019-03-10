@@ -38,6 +38,8 @@ public class RestLoggerTest {
         MultivaluedMap<String, String> data = new MultivaluedHashMap<>();
         data.putSingle("key1", "value");
         RestLogger.log(log, data);
+
+        RestLogger.log(log, null);
     }
 
 }

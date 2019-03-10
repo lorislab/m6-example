@@ -15,17 +15,31 @@ addons:
     token:
       secure: $SONARCLOUD_KEY
 
-before_install:
+install:
   - git clone https://github.com/lorislab/travis-configuration.git .scripts
   - find .scripts -type f -iname "*.sh" -exec chmod +x {} \;
 
-install: ./.scripts/maven/jee/install.sh
+stages:
+  - compile
+  - test
+  - publish
+  - deploy
 
-script:
-  - ./.scripts/maven/jee/build.sh
-  - docker pull vromero/activemq-artemis
-  - ./.scripts/maven/jee/tests.sh
-  - ./.scripts/maven/jee/docker_deploy.sh
-
-after_success:
-  - ./.scripts/maven/jee/after_success.sh
+jobs:
+  include:
+    - stage: build
+      name: Build project
+      script:
+        - ./.scripts/maven/ci/build.sh
+    - stage: test
+      name: Integration tests
+      script:
+        - echo "Integration tets"
+    - stage: publish
+      name: Publish project
+      script:
+        - echo "Publish project"
+    - stage: deploy
+      name: Deploy docker image
+      script:
+        - echo "Docker push"
