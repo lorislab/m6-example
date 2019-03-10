@@ -19,23 +19,28 @@ install:
   - git clone https://github.com/lorislab/travis-configuration.git .scripts
   - find .scripts -type f -iname "*.sh" -exec chmod +x {} \;
 
-stages:
-  - build
-  - test
-  - publish
+script:
+  - ./.scripts/maven/ci/build.sh
+  - ./.scripts/maven/ci/tests.sh
+  - ./.scripts/maven/ci/publish.sh
 
-jobs:
-  include:
-    - stage: build
-      name: Build project
-      script:
-        - ./.scripts/maven/ci/build.sh
-    - stage: test
-      name: Integration tests
-      script:
-        - ./.scripts/maven/ci/tests.sh
-    - stage: publish
-      name: Publish project
-      script:
-        - ./.scripts/maven/ci/publish.sh
+#stages:
+#  - build
+#  - test
+#  - publish
+#
+#jobs:
+#  include:
+#    - stage: build
+#      name: Build project
+#      script:
+#        - ./.scripts/maven/ci/build.sh
+#    - stage: test
+#      name: Integration tests
+#      script:
+#        - ./.scripts/maven/ci/tests.sh
+#    - stage: publish
+#      name: Publish project
+#      script:
+#        - ./.scripts/maven/ci/publish.sh
 
