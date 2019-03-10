@@ -25,7 +25,7 @@ script:
   - ./.scripts/maven/jee/build.sh
   - docker pull vromero/activemq-artemis
   - ./.scripts/maven/jee/tests.sh
-  - ./.scripts/maven/jee/deploy_master.sh
+  - ./.scripts/maven/jee/docker_deploy.sh
 
 after_success:
   - ./.scripts/maven/jee/after_success.sh

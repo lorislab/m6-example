@@ -302,7 +302,7 @@
                     <plugin>
                         <groupId>com.spotify</groupId>
                         <artifactId>dockerfile-maven-plugin</artifactId>
-                        <version>1.4.9</version>
+                        <version>1.4.10</version>
                         <executions>
                             <execution>
                                 <id>default</id>
@@ -310,8 +310,42 @@
                                     <goal>build</goal>
                                 </goals>
                             </execution>
+                            <execution>
+                                <id>tag</id>
+                                <goals>
+                                    <goal>tag</goal>
+                                </goals>
+                                <configuration>
+                                    <tag>${project.version}</tag>
+                                </configuration>
+                            </execution>
                         </executions>
                         <configuration>
+                            <repository>lorislab/${project.artifactId}</repository>
+                            <pullNewerImage>false</pullNewerImage>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>docker-push</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>dockerfile-maven-plugin</artifactId>
+                        <version>1.4.10</version>
+                        <executions>
+                            <execution>
+                                <id>default</id>
+                                <goals>
+                                    <goal>push</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <tag>${project.version}</tag>
                             <repository>lorislab/${project.artifactId}</repository>
                             <pullNewerImage>false</pullNewerImage>
                         </configuration>
