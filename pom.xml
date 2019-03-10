@@ -244,7 +244,6 @@
                                     <excludes>
                                         <exclude>**/*_.class</exclude>
                                     </excludes>
-                                    <destFile>${project.build.directory}/jacoco-it.exec</destFile>
                                 </configuration>
                             </execution>
                         </executions>
@@ -292,6 +291,7 @@
                                 <include>**/*</include>
                             </includes>
                             <groups>IntegrationTest</groups>
+                            <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                         </configuration>
                         <executions>
                             <execution>
