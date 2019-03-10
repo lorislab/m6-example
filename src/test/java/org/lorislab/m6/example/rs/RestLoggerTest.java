@@ -17,7 +17,6 @@
 package org.lorislab.m6.example.rs;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.core.MultivaluedHashMap;
@@ -30,6 +29,7 @@ public class RestLoggerTest {
     @Test
     public void dummyTest() {
         RestLogger.dummyTest(UUID.randomUUID().toString());
+        RestLogger.dummyTest(null);
     }
 
     @Test

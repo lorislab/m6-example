@@ -24,6 +24,10 @@ import javax.ws.rs.core.MultivaluedMap;
 @Slf4j
 public class RestLogger {
 
+    private RestLogger() {
+        // empty constructor
+    }
+
     public static void dummyTest(String data) {
       log.info("Dummy test method {}", data);
     }
