@@ -23,7 +23,6 @@ stages:
   - build
   - test
   - publish
-  - deploy
 
 jobs:
   include:
@@ -34,12 +33,9 @@ jobs:
     - stage: test
       name: Integration tests
       script:
-        - echo "Integration tets"
+        - ./.scripts/maven/ci/build.sh
     - stage: publish
       name: Publish project
       script:
         - echo "Publish project"
-    - stage: deploy
-      name: Deploy docker image
-      script:
-        - echo "Docker push"
+
