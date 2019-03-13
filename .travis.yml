@@ -19,28 +19,34 @@ install:
   - git clone https://github.com/lorislab/travis-configuration.git .scripts
   - find .scripts -type f -iname "*.sh" -exec chmod +x {} \;
 
-script:
-  - ./.scripts/maven/ci/build.sh
-  - ./.scripts/maven/ci/tests.sh
-  - ./.scripts/maven/ci/publish.sh
+#script:
+#  - ./.scripts/maven/ci/build.sh
+#  - ./.scripts/maven/ci/tests.sh
+#  - ./.scripts/maven/ci/publish.sh
 
-#stages:
-#  - build
-#  - test
-#  - publish
-#
-#jobs:
-#  include:
-#    - stage: build
-#      name: Build project
-#      script:
-#        - ./.scripts/maven/ci/build.sh
-#    - stage: test
-#      name: Integration tests
-#      script:
-#        - ./.scripts/maven/ci/tests.sh
-#    - stage: publish
-#      name: Publish project
-#      script:
-#        - ./.scripts/maven/ci/publish.sh
+stages:
+  - build
+  - pull
+  - promote
+
+jobs:
+  include:
+    - stage: build
+      name: Build project
+      if: branch = develop && tag IS NOT present && type NOT IN (pull_request)
+      script:
+        - ./.scripts/maven/ci/build.sh
+        - ./.scripts/maven/ci/tests.sh
+        - ./.scripts/maven/ci/publish.sh
+    - stage: pull
+      name: Pull request
+      if: type IN (pull_request) && tag IS NOT present
+      script:
+        - ./.scripts/maven/ci/build.sh
+        - ./.scripts/maven/ci/tests.sh
+    - stage: promote
+      name: Promote an image
+      if: branch = develop && tag IS present && type NOT IN (pull_request)
+      script:
+        - ./.scripts/maven/ci/promote.sh
 

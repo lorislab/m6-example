@@ -246,9 +246,6 @@
                                 </goals>
                                 <configuration>
                                     <address>localhost</address>
-                                    <excludes>
-                                        <exclude>**/*_.class</exclude>
-                                    </excludes>
                                 </configuration>
                             </execution>
                         </executions>
@@ -344,8 +341,6 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <dateFormat>yyyyMMdd-HHmmss</dateFormat>
-                            <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
                             <generateGitPropertiesFile>false</generateGitPropertiesFile>
                         </configuration>
                     </plugin>
@@ -363,23 +358,13 @@
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>tag-time</id>
-                                <goals>
-                                    <goal>tag</goal>
-                                    <goal>push</goal>
-                                </goals>
-                                <configuration>
-                                    <tag>${git.commit.time}.${git.commit.id.abbrev}</tag>
-                                </configuration>
-                            </execution>
-                            <execution>
                                 <id>tag-git</id>
                                 <goals>
                                     <goal>tag</goal>
                                     <goal>push</goal>
                                 </goals>
                                 <configuration>
-                                    <tag>${git.commit.id}</tag>
+                                    <tag>${git.commit.id.abbrev}</tag>
                                 </configuration>
                             </execution>
                         </executions>
