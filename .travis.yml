@@ -46,7 +46,7 @@ jobs:
         - ./.scripts/maven/ci/tests.sh
     - stage: promote
       name: Promote an image
-      if: branch = develop && tag IS present && type NOT IN (pull_request)
+      if: tag IS present && type NOT IN (pull_request)
       script:
         - ./.scripts/maven/ci/promote.sh
 
