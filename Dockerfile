@@ -15,7 +15,9 @@ RUN galleon.sh provision /tmp/docker/wildfly/provision.xml --dir=${JBOSS_HOME}
 FROM jboss/base-jdk:11
 
 USER root
-RUN yum update -y
+RUN yum update -y && \
+    yum clean all
+
 
 USER jboss
 
